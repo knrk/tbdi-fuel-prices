@@ -1,6 +1,6 @@
 {
-  "name": "angular-real-world-application-boilerplate",
-  "version": "0.0.0",
+  "name": "tbdi-fuel-price",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

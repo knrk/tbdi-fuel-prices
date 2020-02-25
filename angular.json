@@ -61,6 +61,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "port": 4444,
             "browserTarget": "Angular-Real-World-Application-Boilerplate:build"
           },
           "configurations": {
