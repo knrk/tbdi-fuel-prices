@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Angular-Real-World-Application-Boilerplate": {
+    "TBDI-Fuel-Price": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Angular-Real-World-Application-Boilerplate",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -27,8 +27,10 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@nebular/theme/styles/prebuilt/default.css",
               "src/styles.scss"
             ],
+            "aot": true,
             "scripts": []
           },
           "configurations": {
@@ -62,18 +64,18 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 4444,
-            "browserTarget": "Angular-Real-World-Application-Boilerplate:build"
+            "browserTarget": "TBDI-Fuel-Price:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Angular-Real-World-Application-Boilerplate:build:production"
+              "browserTarget": "TBDI-Fuel-Price:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Angular-Real-World-Application-Boilerplate:build"
+            "browserTarget": "TBDI-Fuel-Price:build"
           }
         },
         "test": {
@@ -107,7 +109,7 @@
         }
       }
     },
-    "Angular-Real-World-Application-Boilerplate-e2e": {
+    "TBDI-Fuel-Price-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +118,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Angular-Real-World-Application-Boilerplate:serve"
+            "devServerTarget": "TBDI-Fuel-Price:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Angular-Real-World-Application-Boilerplate:serve:production"
+              "devServerTarget": "TBDI-Fuel-Price:serve:production"
             }
           }
         },
@@ -136,5 +138,5 @@
       }
     }
   },
-  "defaultProject": "Angular-Real-World-Application-Boilerplate"
+  "defaultProject": "TBDI-Fuel-Price"
 }

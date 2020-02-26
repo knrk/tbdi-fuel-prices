@@ -1,2 +1,19 @@
+<h5>Latest</h5>
+<div class="col-md-3" *ngIf="latest">
+    <label>Nafta:</label>
+    <span>{{ latest.crude.price }} Kč/l</span>
+    <br>
+    <label>Benzín:</label>
+    <span>{{ latest.petrol.price | currency }}/l</span>
+</div>
 
-<p>Dashboard works</p>
+<h5>History</h5>    
+<div class="col-md-3" *ngIf="$prices | async as prices">
+    <!-- {{ prices | json }}     -->
+    <hr>
+    <div *ngFor="let item of prices">
+        <label>{{ item.fuel }}:</label>
+        <span>{{ item.price | currency }}/l</span>
+        <span>From: {{ item.from | date }} To: {{ item.to | date }}</span>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+    "prices": [{
+        "price": 26.90,
+        "fuel": "crude",
+        "from": "Tue Feb 18 2020 16:16:48 GMT+0100 (Central European Standard Time)",
+        "to": "Tue Feb 25 2020 16:16:48 GMT+0100 (Central European Standard Time)",
+        "published": true
+    }]
+}

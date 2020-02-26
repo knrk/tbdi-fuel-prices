@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/services/auth.guard';
 
 const routes: Routes = [
-  
   {
     path: 'dashboard',
     loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
@@ -22,10 +21,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/dashboard',
     pathMatch: "full"
-  },
-  
-  
- 
+  }
 ];
 
 @NgModule({

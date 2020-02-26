@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from './core/services/test.service';
-import { HttpErrorService } from './core/services/http-error.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuthService } from './core/services/auth.service';
 
 @Component({
@@ -15,17 +13,15 @@ export class AppComponent implements OnInit{
 
   isUserLogged: boolean;
 
+
+
   constructor(
-    private authService: AuthService,
-    private test: TestService) {
+    private authService: AuthService
+  ) {
+    
   }
 
   ngOnInit() {
     this.isUserLogged = this.authService.isAuthenticated();
-  }
-
-  fetch() {
-    this.test.fetch()
-      .subscribe(data => console.log(data));
   }
 }
