@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import { IPrice } from '@shared/models/IPrice';
 import { PricesService } from '@core/services/prices.service';
@@ -6,6 +6,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']

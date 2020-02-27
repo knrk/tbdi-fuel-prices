@@ -8,9 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import localeCs from '@angular/common/locales/cs';
 registerLocaleData(localeCs);
 
-import { MomentModule } from 'ngx-moment';
-
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbListModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { AngularFireModule } from '@angular/fire';
@@ -42,10 +40,10 @@ import { MasterFooterComponent } from './core/components/master-footer/master-fo
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
-    NbThemeModule.forRoot({ name: 'default' }),
+    NbThemeModule.forRoot({ name: 'tbdi' }),
     NbLayoutModule,
-    NbEvaIconsModule,
-    MomentModule
+    NbListModule,
+    NbEvaIconsModule
   ],
   providers: [
     httpInterceptorProviders,

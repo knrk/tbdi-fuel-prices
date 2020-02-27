@@ -3,7 +3,31 @@ p {
 
     label {
         font-size: 12px;
+
+        span {
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 2px;
+        }
     }
+}
+
+hr {
+    border: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.09);
+    height: 1px;
+}
+
+.panel {
+    min-height: 22px;
+    background-color: white;
+}
+
+.sticky-panel {
+    position: sticky;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 15px;
 }
 
 .big-number {
@@ -12,30 +36,23 @@ p {
 }
 
 .unit {
-    font-size: 20px;
+    font-size: 16px;
     color: rgba(0, 0, 0, 0.5);
 }
 
 .latest-price {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    margin-top: 15px;
     
-    p {
+    .latest-price__wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    
         border-radius: 10px;
         background-color: white;
         padding: 10px 15px;
-
-        &:first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-        &:last-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }        
+        box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.08);
+  
     }
 
     label {
@@ -47,6 +64,24 @@ p {
 }
 
 .history {
+
+    padding: 15px;
+
+    nb-card,
+    nb-card-header,
+    nb-list-item {
+        display: block;
+    }  
+
+    nb-tab {
+        padding: 10px 0;
+    }
+
+    h3, h5 {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
     ul {
         list-style: none;
         margin: 0;
@@ -54,5 +89,12 @@ p {
     }
     li {
         margin: 0;
+
+    }
+    
+    .row-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }

@@ -1,22 +1,49 @@
-<p><label>Poslední aktualizace:</label>{{ latest.crude.from | amTimeAgo }}</p>
-<div class="col-md-3 latest-price" *ngIf="latest">
-    <p>
-        <label>Nafta:</label>
-        <span class="big-number">{{ latest.crude.price | currency: ' ' }}<span class="unit">Kč/l</span></span>
-    </p>
-    <p>
-        <label>Benzín:</label>
-        <span class="big-number">{{ latest.petrol.price | currency: ' ' }}<span class="unit">Kč/l</span></span>
-    </p>
+<div class="sticky-panel">
+  
+  <div class="col-md-3 latest-price" *ngIf="latest">
+	  <div class="latest-price__wrap">
+		  <p>
+			<label>Nafta:</label>
+			<span class="big-number">{{ latest.crude.price | currency: " " }}<span class="unit">Kč/l</span></span>
+		  </p>
+		  <p>
+			<label>Benzín:</label>
+			<span class="big-number">{{ latest.petrol.price | currency: " "}}<span class="unit">Kč/l</span></span>
+		  </p>	
+	  </div>
+  </div>
+  <p *ngIf="latest">
+    <label>Poslední aktualizace: <span>{{ latest.crude.from | amLocale: "cs" | amTimeAgo }}</span></label>
+  </p>
 </div>
- 
-<div class="col-md-3 history" *ngIf="$prices | async as prices">
-    <!-- {{ prices | json }}     -->
-    <ul>
-        <li *ngFor="let item of prices">
-            <label>{{ item.fuel }}:</label>
-            <span>{{ item.price | currency }}/l</span>
-            <span>From: {{ item.from | date }} To: {{ item.to | date }}</span>
-        </li>
-    </ul>
+
+<div *ngIf="$prices | async as prices" class="history">
+	<h5>Historie</h5>
+	<nb-tabset>
+		<nb-tab tabTitle="Nafta">
+			<nb-card>
+				<nb-list *ngFor="let item of prices">
+					<nb-list-item *ngIf="item.fuel == 'crude'">
+						<div class="row-item">
+							<div>{{ item.from | date }} - {{ item.to | date }}</div>
+							<div>{{ item.price | currency }}/l</div>
+						</div>
+					</nb-list-item>
+				</nb-list>
+			</nb-card>
+		</nb-tab>
+		<nb-tab tabTitle="Benzín">
+			<nb-card>
+				<nb-list *ngFor="let item of prices">
+					<nb-list-item *ngIf="item.fuel == 'petrol'">
+						<div class="row-item">
+							<div>{{ item.from | date }} - {{ item.to | date }}</div>
+							<div>{{ item.price | currency }}/l</div>
+						</div>
+					</nb-list-item>
+				</nb-list>
+			</nb-card>
+		</nb-tab>
+	</nb-tabset>
+	
 </div>
