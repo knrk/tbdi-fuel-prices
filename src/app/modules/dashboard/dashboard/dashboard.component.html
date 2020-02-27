@@ -1,19 +1,22 @@
-<h5>Latest</h5>
-<div class="col-md-3" *ngIf="latest">
-    <label>Nafta:</label>
-    <span>{{ latest.crude.price }} Kč/l</span>
-    <br>
-    <label>Benzín:</label>
-    <span>{{ latest.petrol.price | currency }}/l</span>
+<p><label>Poslední aktualizace:</label>{{ latest.crude.from | amTimeAgo }}</p>
+<div class="col-md-3 latest-price" *ngIf="latest">
+    <p>
+        <label>Nafta:</label>
+        <span class="big-number">{{ latest.crude.price | currency: ' ' }}<span class="unit">Kč/l</span></span>
+    </p>
+    <p>
+        <label>Benzín:</label>
+        <span class="big-number">{{ latest.petrol.price | currency: ' ' }}<span class="unit">Kč/l</span></span>
+    </p>
 </div>
-
-<h5>History</h5>    
-<div class="col-md-3" *ngIf="$prices | async as prices">
+ 
+<div class="col-md-3 history" *ngIf="$prices | async as prices">
     <!-- {{ prices | json }}     -->
-    <hr>
-    <div *ngFor="let item of prices">
-        <label>{{ item.fuel }}:</label>
-        <span>{{ item.price | currency }}/l</span>
-        <span>From: {{ item.from | date }} To: {{ item.to | date }}</span>
-    </div>
+    <ul>
+        <li *ngFor="let item of prices">
+            <label>{{ item.fuel }}:</label>
+            <span>{{ item.price | currency }}/l</span>
+            <span>From: {{ item.from | date }} To: {{ item.to | date }}</span>
+        </li>
+    </ul>
 </div>

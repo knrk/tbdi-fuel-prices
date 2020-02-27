@@ -1,0 +1,58 @@
+p {
+    margin: 0;
+
+    label {
+        font-size: 12px;
+    }
+}
+
+.big-number {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.unit {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.latest-price {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 30px;
+    
+    p {
+        border-radius: 10px;
+        background-color: white;
+        padding: 10px 15px;
+
+        &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }        
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+}
+
+.history {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        margin: 0;
+    }
+}

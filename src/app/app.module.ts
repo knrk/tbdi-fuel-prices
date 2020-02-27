@@ -8,7 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import localeCs from '@angular/common/locales/cs';
 registerLocaleData(localeCs);
 
-import { ChartsModule } from 'ng2-charts';
+import { MomentModule } from 'ngx-moment';
 
 import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -45,7 +45,7 @@ import { MasterFooterComponent } from './core/components/master-footer/master-fo
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
     NbEvaIconsModule,
-    ChartsModule
+    MomentModule
   ],
   providers: [
     httpInterceptorProviders,
