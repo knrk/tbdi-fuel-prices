@@ -5,7 +5,7 @@
 		</div> -->
 		<div class="panel u-flex headline">
 			<h3>Aktuální cena</h3>
-			<button class="button">Přidat</button>
+			<button class="button" (click)="onAdd($event)">Přidat</button>
 		</div>
 		<div class="panel sticky">			
 			<div class="col-md-3 latest-price" *ngIf="latest">

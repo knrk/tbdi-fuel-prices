@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+
+import { NbWindowService } from '@nebular/theme';
 
 import { IPrice } from '@shared/models/IPrice';
 import { PricesService } from '@core/services/prices.service';
-import { map, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { AddPriceComponent } from '@shared/dialogs/add-price/add-price.component'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,38 +21,39 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   public $prices: Observable<IPrice[]>;
 
-  public chartConfig = {
-    // labels: ['Led', 'Un', 'Bre', 'Dub', 'Kve', 'Cer', 'Cvn', 'Srp', 'Za', 'Ri', 'Li', 'Pro'],
-    datasets: [{
-        label: null,
-        // data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)',
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)',
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
+  // public chartConfig = {
+  //   // labels: ['Led', 'Un', 'Bre', 'Dub', 'Kve', 'Cer', 'Cvn', 'Srp', 'Za', 'Ri', 'Li', 'Pro'],
+  //   datasets: [{
+  //       label: null,
+  //       // data: [65, 59, 80, 81, 56, 55, 40],
+  //       fill: false,
+  //       backgroundColor: [
+  //         'rgba(255, 99, 132, 0.2)',
+  //         'rgba(255, 159, 64, 0.2)',
+  //         'rgba(255, 205, 86, 0.2)',
+  //         'rgba(75, 192, 192, 0.2)',
+  //         'rgba(54, 162, 235, 0.2)',
+  //         'rgba(153, 102, 255, 0.2)',
+  //         'rgba(201, 203, 207, 0.2)',
+  //       ],
+  //       borderColor: [
+  //         'rgb(255, 99, 132)',
+  //         'rgb(255, 159, 64)',
+  //         'rgb(255, 205, 86)',
+  //         'rgb(75, 192, 192)',
+  //         'rgb(54, 162, 235)',
+  //         'rgb(153, 102, 255)',
+  //         'rgb(201, 203, 207)',
+  //       ],
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
 
 
   constructor(
-    private pricesService: PricesService
+    private pricesService: PricesService,
+    private windowService: NbWindowService
   ) { 
     
   }
@@ -119,5 +123,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }, {});
 
     });
+  }
+
+  onAdd($event) {
+    this.windowService.open(AddPriceComponent, { hasBackdrop: true, windowClass: 'stretch'});
   }
 }

@@ -8,7 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import localeCs from '@angular/common/locales/cs';
 registerLocaleData(localeCs);
 
-import { NbThemeModule, NbLayoutModule, NbListModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbListModule, NbWindowModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { AngularFireModule } from '@angular/fire';
@@ -41,6 +41,7 @@ import { MasterFooterComponent } from './core/components/master-footer/master-fo
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     NbThemeModule.forRoot({ name: 'tbdi' }),
+    NbWindowModule.forRoot({}),
     NbLayoutModule,
     NbListModule,
     NbEvaIconsModule

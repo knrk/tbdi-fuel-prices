@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import 'moment/locale/cs';
 import { MomentModule } from 'ngx-moment';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
-import { NbTabsetModule, NbIconModule } from '@nebular/theme';
+import { NbTabsetModule, NbIconModule, NbInputModule } from '@nebular/theme';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from '@core/services/auth.guard';
@@ -25,6 +25,7 @@ const routes: Routes = [
     MomentModule,
     ChartjsModule,
     NbTabsetModule,
+    NbInputModule,
     NbIconModule,
     RouterModule.forChild(routes)
   ],

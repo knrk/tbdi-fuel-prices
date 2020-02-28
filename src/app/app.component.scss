@@ -14,4 +14,22 @@
         font-size: 12px;
         padding: 5px 15px;
     }
+
+    .stretch,
+    .full-screen.stretch {
+        top: 40%;
+        bottom: 0;
+        min-width: calc(100vw - 10px);        
+
+        nb-card {
+            background-color: #F7F8FB;
+            border-radius: 12px 12px 0 0;
+            margin: 0;
+            min-height: 100vh;
+
+            nb-card-header {
+                display: none;
+            }
+        }        
+    }
 }
