@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import 'moment/locale/cs';
 import { MomentModule } from 'ngx-moment';
-import { NbTabsetModule } from '@nebular/theme';
+import { ChartjsModule } from '@ctrl/ngx-chartjs';
+import { NbTabsetModule, NbIconModule } from '@nebular/theme';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from '@core/services/auth.guard';
@@ -22,7 +23,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     MomentModule,
+    ChartjsModule,
     NbTabsetModule,
+    NbIconModule,
     RouterModule.forChild(routes)
   ],
   exports: [

@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Work+Sans:400,700&display=swap');
+// @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans|Work+Sans:400,700&display=swap');
+@import "assets/fonts/Inter/inter.css";
 
 @import '~@nebular/theme/styles/theming';
 @import '~@nebular/theme/styles/themes/default';
 
 $nb-themes: nb-register-theme((
 
-  font-family-primary: 'IBM Plex Sans',
+  font-family-primary: 'Inter',
   layout-small-padding: 0,
+  layout-background-color: #F7F8FB
 
 ), tbdi, default);

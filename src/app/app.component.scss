@@ -1,0 +1,17 @@
+:host ::ng-deep {
+    .u-flex {
+        display: flex;
+    }
+    
+    button,
+    .button {
+        background-color: rgba(0, 112, 255, 0.08);
+        color: #0070FF;
+        border: 0;
+        border-radius: 12px;
+        max-height: 24px;
+        min-width: 80px;
+        font-size: 12px;
+        padding: 5px 15px;
+    }
+}

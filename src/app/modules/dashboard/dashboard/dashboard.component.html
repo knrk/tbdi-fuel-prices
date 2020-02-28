@@ -1,49 +1,72 @@
-<div class="sticky-panel">
-  
-  <div class="col-md-3 latest-price" *ngIf="latest">
-	  <div class="latest-price__wrap">
-		  <p>
-			<label>Nafta:</label>
-			<span class="big-number">{{ latest.crude.price | currency: " " }}<span class="unit">Kč/l</span></span>
-		  </p>
-		  <p>
-			<label>Benzín:</label>
-			<span class="big-number">{{ latest.petrol.price | currency: " "}}<span class="unit">Kč/l</span></span>
-		  </p>	
-	  </div>
-  </div>
-  <p *ngIf="latest">
-    <label>Poslední aktualizace: <span>{{ latest.crude.from | amLocale: "cs" | amTimeAgo }}</span></label>
-  </p>
-</div>
+<section class="fuel-prices">
+	<main>		
+		<!-- <div class="panel">
+			<nb-icon icon="menu-outline"></nb-icon>
+		</div> -->
+		<div class="panel u-flex headline">
+			<h3>Aktuální cena</h3>
+			<button class="button">Přidat</button>
+		</div>
+		<div class="panel sticky">			
+			<div class="col-md-3 latest-price" *ngIf="latest">
+				<div class="latest-price__wrap">
+					<p>
+						<label>Nafta:</label>
+						<span class="big-number">{{ latest.crude.price | currency: " " }}<span class="unit">Kč/l</span></span>
+					</p>
+					<p>
+						<label>Benzín:</label>
+						<span class="big-number">{{ latest.petrol.price | currency: " "}}<span class="unit">Kč/l</span></span>
+					</p>	
+				</div>
+			</div>
+		</div>
+		<div class="panel valid" *ngIf="latest">
+			<p>Platná od {{ latest.crude.from | date }} do {{ latest.crude.to | date }}.</p>
+		</div>
 
-<div *ngIf="$prices | async as prices" class="history">
-	<h5>Historie</h5>
-	<nb-tabset>
-		<nb-tab tabTitle="Nafta">
-			<nb-card>
-				<nb-list *ngFor="let item of prices">
-					<nb-list-item *ngIf="item.fuel == 'crude'">
-						<div class="row-item">
-							<div>{{ item.from | date }} - {{ item.to | date }}</div>
-							<div>{{ item.price | currency }}/l</div>
-						</div>
-					</nb-list-item>
-				</nb-list>
-			</nb-card>
-		</nb-tab>
-		<nb-tab tabTitle="Benzín">
-			<nb-card>
-				<nb-list *ngFor="let item of prices">
-					<nb-list-item *ngIf="item.fuel == 'petrol'">
-						<div class="row-item">
-							<div>{{ item.from | date }} - {{ item.to | date }}</div>
-							<div>{{ item.price | currency }}/l</div>
-						</div>
-					</nb-list-item>
-				</nb-list>
-			</nb-card>
-		</nb-tab>
-	</nb-tabset>
-	
-</div>
+		<!-- <div class="panel chart">
+			<ngx-chartjs [data]="chartConfig" type="line"></ngx-chartjs>
+		</div> -->
+
+		<div *ngIf="$prices | async as prices" class="history">
+			<h5>Historie</h5>
+			<nb-tabset>
+				<nb-tab tabTitle="Nafta">
+					
+					<nb-list>
+						<ng-container *ngFor="let item of prices | slice:2; trackBy: trackByFn">
+							<nb-list-item *ngIf="item.fuel == 'crude'">
+								<div class="row-item">
+									<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
+									<div class="price"><b>{{ item.price | currency }}/l</b></div>
+								</div>
+							</nb-list-item>
+						</ng-container>
+					</nb-list>
+					
+				</nb-tab>
+				<nb-tab tabTitle="Benzín">
+					
+					<nb-list>
+						<ng-container *ngFor="let item of prices | slice:2; trackBy: trackByFn">
+							<nb-list-item *ngIf="item.fuel == 'petrol'">
+								<div class="row-item">
+									<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
+									<div class="price"><b>{{ item.price | currency }}/l</b></div>
+								</div>
+							</nb-list-item>
+						</ng-container>
+					</nb-list>
+					
+				</nb-tab>
+			</nb-tabset>
+			
+		</div>
+	</main>
+	<footer>
+		<p *ngIf="latest">
+			Poslední aktualizace: <b>{{ latest.crude.from | amLocale: "cs" | amTimeAgo }}</b>
+		</p>
+	</footer>
+</section>

@@ -1,3 +1,138 @@
+:host ::ng-deep {
+    .fuel-prices {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+
+        main {
+            flex: 1 1 auto;
+        }
+
+        footer {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 40px;
+
+            p {
+                font-size: 11px;
+                margin: 10px 0;
+                color: rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        h3, h5 {
+            margin: 0;
+            margin-left: 10px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+    
+        h3 {
+            font-size: 24px;
+        }
+
+        .history {
+
+            padding: 0 15px;
+        
+            nb-card,
+            nb-card-header,
+            nb-list-item {
+                display: block;
+            }  
+        
+            nb-tab {
+                padding: 18px 0 0;
+            }
+        
+            nb-tabset {
+                ul.tabset {
+                    border-bottom: 0;
+                    background-color: #ECEEF5;
+                    border-radius: 15px;
+                    justify-content: center;
+                    
+                    li.tab {
+                        min-width: 82px;
+                        margin-bottom: 0;
+                        font-size: 16px;
+                        line-height: 18px;
+                        border: 3px solid transparent;
+
+                        a {
+                            justify-content: center;
+                            padding: 0;
+                            font-size: 16px;
+                            line-height: 22px;
+
+                            span {
+                                font-weight: 500;
+                                color: rgba(0, 0, 0, 0.5);
+                                font-size: 12px;
+                            }
+                        }
+
+                        &.active {                             
+                            a {
+                                background-color: white;
+                                border-color: #ECEEF5;
+                                border-radius: 20px;
+
+                                span {
+                                    color: rgba(0, 0, 0, 1);
+                                }
+
+                                &::before {
+                                    display: none !important;
+                                }
+                            }
+                        }
+                    }
+        
+                }
+            }
+
+            nb-list-item {
+                background-color: white;
+                border: 0;
+                border-radius: 12px;
+                margin-bottom: 12px;
+
+                .date {
+                    color: rgba(0, 0, 0, 0.5);
+                    font-size: 11px;
+                }
+
+                .price {
+                    font-size: 12px;
+                }
+            }
+        
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                margin: 0;
+        
+            }
+
+            h5 {
+                margin-bottom: 8px;
+            }
+            
+            .row-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        
+    }
+}
+
+
 p {
     margin: 0;
 
@@ -12,37 +147,48 @@ p {
     }
 }
 
-hr {
-    border: 0;
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0.09);
-    height: 1px;
-}
-
 .panel {
-    min-height: 22px;
-    background-color: white;
+    min-height: 40px;
+    padding: 0 15px;
+
+    p {
+        font-size: 12px;
+    }
 }
 
-.sticky-panel {
+.panel.sticky {
     position: sticky;
-    background-color: rgba(255, 255, 255, 0.3);
+    // background-color: rgba(255, 255, 255, 0.3);
     padding: 15px;
+    padding-bottom: 0;
+}
+
+.panel.headline {
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.panel.valid {
+    p {
+        text-align: right;
+        opacity: 0.3;
+    }
 }
 
 .big-number {
-    font-size: 40px;
+    font-size: 24px;
     font-weight: 600;
 }
 
 .unit {
-    font-size: 16px;
+    font-size: 14px;
     color: rgba(0, 0, 0, 0.5);
+    margin-left: 3px;
 }
 
 .latest-price {
     margin-bottom: 5px;
-    margin-top: 15px;
     
     .latest-price__wrap {
         display: grid;
@@ -50,51 +196,17 @@ hr {
     
         border-radius: 10px;
         background-color: white;
-        padding: 10px 15px;
-        box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.08);
+        padding: 12px 18px;
+        box-shadow: 0 20px 40px 0 rgba(0, 10, 62, 0.05);
   
     }
 
     label {
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 4px;
         text-transform: uppercase;
         font-size: 12px;
+        font-weight: 600;
     }
 }
 
-.history {
-
-    padding: 15px;
-
-    nb-card,
-    nb-card-header,
-    nb-list-item {
-        display: block;
-    }  
-
-    nb-tab {
-        padding: 10px 0;
-    }
-
-    h3, h5 {
-        margin: 0;
-        margin-bottom: 10px;
-    }
-
-    ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    li {
-        margin: 0;
-
-    }
-    
-    .row-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
