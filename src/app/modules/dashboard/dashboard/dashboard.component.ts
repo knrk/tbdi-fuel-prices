@@ -69,6 +69,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.latestSubject.complete();
   }
 
+
+  filterPriceOlderWeek(price: any) {
+    const beforeWeek = new Date(new Date().setDate(new Date().getDate() - 7));
+    return price.from < beforeWeek ? true : false;
+  }
+
   trackByFn(index, item) {
     return item.id;
   }

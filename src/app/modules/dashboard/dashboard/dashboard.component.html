@@ -5,7 +5,7 @@
 		</div> -->
 		<div class="panel u-flex headline">
 			<h3>Aktuální cena</h3>
-			<button class="button" (click)="onAdd($event)">Přidat</button>
+			<button class="button" (click)="onAdd($event)"><nb-icon icon="plus"></nb-icon>Přidat</button>
 		</div>
 		<div class="panel sticky">			
 			<div class="col-md-3 latest-price" *ngIf="latest">
@@ -33,32 +33,28 @@
 			<h5>Historie</h5>
 			<nb-tabset>
 				<nb-tab tabTitle="Nafta">
-					
-					<nb-list>
-						<ng-container *ngFor="let item of prices | slice:2; trackBy: trackByFn">
+					<div class="tab-container">
+						<nb-list *ngFor="let item of prices | callback: filterPriceOlderWeek; trackBy: trackByFn">
 							<nb-list-item *ngIf="item.fuel == 'crude'">
 								<div class="row-item">
 									<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
 									<div class="price"><b>{{ item.price | currency }}/l</b></div>
 								</div>
 							</nb-list-item>
-						</ng-container>
-					</nb-list>
-					
+						</nb-list>
+					</div>
 				</nb-tab>
 				<nb-tab tabTitle="Benzín">
-					
-					<nb-list>
-						<ng-container *ngFor="let item of prices | slice:2; trackBy: trackByFn">
+					<div class="tab-container">
+						<nb-list *ngFor="let item of prices | callback: filterPriceOlderWeek; trackBy: trackByFn">
 							<nb-list-item *ngIf="item.fuel == 'petrol'">
 								<div class="row-item">
 									<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
 									<div class="price"><b>{{ item.price | currency }}/l</b></div>
 								</div>
 							</nb-list-item>
-						</ng-container>
-					</nb-list>
-					
+						</nb-list>
+					</div>
 				</nb-tab>
 			</nb-tabset>
 			

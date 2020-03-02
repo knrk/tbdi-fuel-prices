@@ -8,7 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import localeCs from '@angular/common/locales/cs';
 registerLocaleData(localeCs);
 
-import { NbThemeModule, NbLayoutModule, NbListModule, NbWindowModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbWindowModule, NbDatepickerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { AngularFireModule } from '@angular/fire';
@@ -16,7 +16,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
 import { AuthService } from './core/services/auth.service';
 import { httpInterceptorProviders } from './core/http-interceptors';
 import { HttpErrorService } from './core/services/http-error.service';
@@ -34,16 +33,15 @@ import { MasterFooterComponent } from './core/components/master-footer/master-fo
   imports: [
     BrowserModule,
     HttpClientModule,
-    SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     NbThemeModule.forRoot({ name: 'tbdi' }),
-    NbWindowModule.forRoot({}),
+    NbWindowModule.forRoot(),
+    NbDatepickerModule.forRoot(),
     NbLayoutModule,
-    NbListModule,
     NbEvaIconsModule
   ],
   providers: [

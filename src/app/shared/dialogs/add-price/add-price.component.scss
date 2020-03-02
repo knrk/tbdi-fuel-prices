@@ -1,5 +1,41 @@
-fieldset {
-    background-color: white;
-    border: 0;
-    border-radius: 12px;
+form {
+    fieldset {
+        background-color: white;
+        border: 0;
+        border-radius: 12px;
+        padding: 5px 15px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        input {
+            min-height: 32px;
+            background-color: transparent;
+            border: 0;
+            line-height: initial;
+            padding: 5px 0px;
+            font-size: 13px;
+            font-weight: 400;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+
+            &:last-of-type {
+                border-bottom: 0;
+            }
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+    }
+    footer {
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+
+        button {
+            min-height: 32px;
+            min-width: 200px;
+        }
+    }
 }

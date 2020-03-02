@@ -1,6 +1,20 @@
-<fieldset>
-    <legend>Cena</legend>
-    <input type="text" nbInput fullWidth>
-    <button nbButton>Pridat</button>
-</fieldset>
+<form [formGroup]="addPrice">
+    <h5>Cena</h5>
+    <fieldset>    
+        <input id="crude" formControlName="crude" value="30.00" type="number" pattern="^\d{1,2}.\d{1,2}$" step="0.01" name="crude" placeholder="Nafta" nbInput fullWidth>
+        <input id="petrol" formControlName="petrol" value="30.00" type="number" pattern="^\d{1,2}.\d{1,2}$" step="0.01" name="petrol" placeholder="Benzín" nbInput fullWidth>
+    </fieldset>
+    <br>
+    <h5>Platnost</h5>
+    <fieldset>    
+        <input id="from" formControlName="from" name="from" [nbDatepicker]="fromDate">
+        <nb-datepicker #fromDate></nb-datepicker>
+        <input id="to" formControlName="to" name="to" [nbDatepicker]="toDate">
+        <nb-datepicker #toDate></nb-datepicker>
+        
+    </fieldset>
+    <footer>
+        <button type="button" (click)="onAdd()" class="button large">Uložit</button>
+    </footer>
+</form>
 

@@ -6,6 +6,8 @@
 
         main {
             flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
         }
 
         footer {
@@ -20,19 +22,10 @@
             }
         }
 
-        h3, h5 {
-            margin: 0;
-            margin-left: 10px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-    
-        h3 {
-            font-size: 24px;
-        }
-
         .history {
-
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 auto;
             padding: 0 15px;
         
             nb-card,
@@ -41,11 +34,20 @@
                 display: block;
             }  
         
-            nb-tab {
-                padding: 18px 0 0;
-            }
-        
             nb-tabset {
+                display: flex;
+                flex-direction: column;
+                flex: 1 0 auto;
+
+                .tab-container {
+                    display: block;
+                    overflow: auto;
+                }
+
+                nb-tab {
+                    padding: 18px 0 0;
+                }
+
                 ul.tabset {
                     border-bottom: 0;
                     background-color: #ECEEF5;

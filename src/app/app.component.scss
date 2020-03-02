@@ -1,4 +1,9 @@
 :host ::ng-deep {
+
+    .cdk-overlay-dark-backdrop {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
     .u-flex {
         display: flex;
     }
@@ -8,18 +13,22 @@
         background-color: rgba(0, 112, 255, 0.08);
         color: #0070FF;
         border: 0;
-        border-radius: 12px;
-        max-height: 24px;
-        min-width: 80px;
+        border-radius: 20px;
         font-size: 12px;
         padding: 5px 15px;
+        display: flex;
+        align-items: center;
+
+        &.large {
+            justify-content: center;
+        }
     }
 
     .stretch,
     .full-screen.stretch {
         top: 40%;
         bottom: 0;
-        min-width: calc(100vw - 10px);        
+        min-width: 100vw;        
 
         nb-card {
             background-color: #F7F8FB;
@@ -31,5 +40,28 @@
                 display: none;
             }
         }        
+    }
+
+    h3, h5 {
+        margin: 0;
+        margin-left: 10px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    form {
+        input,
+        input[type='text'],
+        input[type='number'] {
+            border: 0;            
+            font-size: 12px;
+            padding: 5px 0px;
+            margin: 0;
+            width: 100%;            
+        }
     }
 }
