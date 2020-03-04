@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { PricesService } from '@core/services/prices.service';
-import { NbWindowRef } from '@nebular/theme';
+import { NbWindowRef, NbDatepicker, NbDatepickerComponent } from '@nebular/theme';
 
 @Component({
   selector: 'app-add-price',
@@ -13,6 +13,9 @@ import { NbWindowRef } from '@nebular/theme';
 export class AddPriceComponent implements OnInit {
 
   public addPrice: FormGroup;
+
+  @ViewChild('fromDate') fromDate: any;
+  @ViewChild('toDate') toDate: any;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +53,11 @@ export class AddPriceComponent implements OnInit {
     });
 
     this.windowRef.close();
+  }
+
+  onFromDateChanged(fromDate) {
+    const from = new Date(new Date().setDate(new Date(fromDate).getDate() + 6));
+    this.toDate.hostRef.nativeElement.value = from.toLocaleDateString('cs-CZ');
   }
 
 }

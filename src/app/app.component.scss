@@ -10,11 +10,12 @@
     
     button,
     .button {
-        background-color: rgba(0, 112, 255, 0.08);
-        color: #0070FF;
+        background-color: rgba(0, 112, 255, 0.9);
+        color: #fff;
         border: 0;
         border-radius: 20px;
         font-size: 12px;
+        font-weight: 800;
         padding: 5px 15px;
         display: flex;
         align-items: center;
@@ -26,9 +27,9 @@
 
     .stretch,
     .full-screen.stretch {
-        top: 40%;
-        bottom: 0;
-        min-width: 100vw;        
+        min-width: 100vw; 
+        margin-top: 100px;
+        transition: margin 1 ease;       
 
         nb-card {
             background-color: #F7F8FB;
@@ -56,12 +57,55 @@
     form {
         input,
         input[type='text'],
-        input[type='number'] {
+        input[type='number'],
+        input[type='password'] {
             border: 0;            
             font-size: 12px;
             padding: 5px 0px;
             margin: 0;
             width: 100%;            
         }
+
+        fieldset {
+            background-color: white;
+            border: 0;
+            border-radius: 12px;
+            padding: 5px 15px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+    
+            input {
+                min-height: 32px;
+                background-color: transparent;
+                border: 0;
+                line-height: initial;
+                padding: 5px 0px;
+                font-size: 13px;
+                font-weight: 400;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+    
+                &:last-of-type {
+                    border-bottom: 0;
+                }
+    
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+    
+        }
+        footer {
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+    
+            button {
+                min-height: 32px;
+                min-width: 100%;
+                margin-top: 10px;
+            }
+        }
     }
+    
 }

@@ -55,7 +55,7 @@
                     justify-content: center;
                     
                     li.tab {
-                        min-width: 82px;
+                        min-width: 50%;
                         margin-bottom: 0;
                         font-size: 16px;
                         line-height: 18px;
@@ -161,23 +161,65 @@ p {
 .panel.sticky {
     position: sticky;
     // background-color: rgba(255, 255, 255, 0.3);
-    padding: 15px;
-    padding-bottom: 0;
+    padding: 0 15px;
+    z-index: 100;
+    margin-bottom: 40px;
+
+    &::before {
+        display: block;
+        content: '';
+        background-color: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        bottom: -8px;
+        width: calc(100% - 60px);
+        height: 50px;
+        z-index: -1;
+        margin: 0 15px;
+        border-radius: 15px;
+    }
 }
 
 .panel.headline {
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    margin-bottom: 20px;
+
+    nb-icon {
+        margin-left: 10px;
+    }
+
+    button {
+        padding: 5px 25px;
+        min-height: 38px;
+        text-transform: uppercase;
+
+        nb-icon {
+            display: none;
+            margin-left: 0;
+        }
+    }
 }
 
 .panel.valid {
     p {
-        text-align: right;
+        text-align: left;
+        margin-left: 10px;
         opacity: 0.3;
     }
 }
+:host ::ng-deep {
+    .panel.chart {
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0;
+        padding: 0;
 
+        
+        .ngx-charts {
+            margin-left: -45px;
+        }
+    }
+}
 .big-number {
     font-size: 24px;
     font-weight: 600;

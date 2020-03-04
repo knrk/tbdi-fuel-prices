@@ -8,10 +8,9 @@
     <h5>Platnost</h5>
     <fieldset>    
         <input id="from" formControlName="from" name="from" [nbDatepicker]="fromDate">
-        <nb-datepicker #fromDate></nb-datepicker>
+        <nb-datepicker #fromDate (dateChange)="onFromDateChanged($event)"></nb-datepicker>
         <input id="to" formControlName="to" name="to" [nbDatepicker]="toDate">
-        <nb-datepicker #toDate></nb-datepicker>
-        
+        <nb-datepicker #toDate></nb-datepicker>        
     </fieldset>
     <footer>
         <button type="button" (click)="onAdd()" class="button large">Uložit</button>

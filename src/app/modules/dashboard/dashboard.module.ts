@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import 'moment/locale/cs';
 import { MomentModule } from 'ngx-moment';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 import { PipesModule } from '@core/pipes.module';
 import { DialogsModule } from '@shared/dialogs/dialogs.module';
 
@@ -41,6 +43,7 @@ const routes: Routes = [
     NbListModule,
     NbTabsetModule,
     NbIconModule,
+    NgxChartsModule,
     PipesModule,
     DialogsModule,
     RouterModule.forChild(routes)

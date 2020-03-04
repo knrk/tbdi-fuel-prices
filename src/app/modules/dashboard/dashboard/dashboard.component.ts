@@ -1,12 +1,15 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ɵSWITCH_COMPILE_DIRECTIVE__POST_R3__ } from '@angular/core';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
 import { NbWindowService } from '@nebular/theme';
 
+import { curveLinear, curveNatural } from 'd3-shape';
+
 import { IPrice } from '@shared/models/IPrice';
 import { PricesService } from '@core/services/prices.service';
 import { AddPriceComponent } from '@shared/dialogs/add-price/add-price.component'
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,44 +19,21 @@ import { AddPriceComponent } from '@shared/dialogs/add-price/add-price.component
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  public isLogged: boolean = false;
+
   private latestSubject = new Subject<void>();
+  private historySubject = new Subject<void>();
+
   public latest: {[key: string]: IPrice};
 
   public $prices: Observable<IPrice[]>;
-
-  // public chartConfig = {
-  //   // labels: ['Led', 'Un', 'Bre', 'Dub', 'Kve', 'Cer', 'Cvn', 'Srp', 'Za', 'Ri', 'Li', 'Pro'],
-  //   datasets: [{
-  //       label: null,
-  //       // data: [65, 59, 80, 81, 56, 55, 40],
-  //       fill: false,
-  //       backgroundColor: [
-  //         'rgba(255, 99, 132, 0.2)',
-  //         'rgba(255, 159, 64, 0.2)',
-  //         'rgba(255, 205, 86, 0.2)',
-  //         'rgba(75, 192, 192, 0.2)',
-  //         'rgba(54, 162, 235, 0.2)',
-  //         'rgba(153, 102, 255, 0.2)',
-  //         'rgba(201, 203, 207, 0.2)',
-  //       ],
-  //       borderColor: [
-  //         'rgb(255, 99, 132)',
-  //         'rgb(255, 159, 64)',
-  //         'rgb(255, 205, 86)',
-  //         'rgb(75, 192, 192)',
-  //         'rgb(54, 162, 235)',
-  //         'rgb(153, 102, 255)',
-  //         'rgb(201, 203, 207)',
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-
+  public $chartPrices: Observable<any[]>;
+  public chartConfig = {};
 
   constructor(
     private pricesService: PricesService,
-    private windowService: NbWindowService
+    private windowService: NbWindowService,
+    private authService: AuthService
   ) { 
     
   }
@@ -61,12 +41,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getPrices();
     this.getLatestPrices();
+
     this.setChart();
+
+    this.$chartPrices = this.getChartData();
+
+    this.isLogged = this.authService.isAuthenticated();
   }
 
   ngOnDestroy() {
     this.latestSubject.next();
     this.latestSubject.complete();
+    this.historySubject.next();
+    this.historySubject.complete();
   }
 
 
@@ -77,17 +64,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   trackByFn(index, item) {
     return item.id;
-  }
-
-  setChart() {
-    // let chartConfig = {
-    //   ...this.chartConfig,
-    //   datasets: [{
-    //     data: []
-    //   }]
-    // }
-
-    // this.chartConfig = chartConfig;
   }
 
   getPrices() {
@@ -129,6 +105,108 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }, {});
 
     });
+  }
+
+  setChart() {    
+    this.chartConfig = {
+      colorScheme: {
+        domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+      },
+      view: [500, 120],
+      legend: false,
+      showLabels: false,
+      animations: true,
+      autoScale: true,
+      yScaleMin: 20,
+      yScaleMax: 40,
+      curve: curveNatural,
+      xAxis: false,
+      yAxis: false,
+      showYAxisLabel: true,
+      showXAxisLabel: true
+    }
+  }
+
+  getChartData() {
+
+    return this.$prices.pipe(
+      takeUntil(this.historySubject),
+      map(data => {
+        return data.filter((item: any) => {
+          const publishDate = new Date(item.from);
+          if (publishDate < new Date()) {
+            return item;
+          }
+        });
+      }),
+      map(data => {
+        
+        let crudePrices = [];
+        let petrolPrices = [];
+
+        data.forEach((oitem) => {
+          const { fuel, ...rest } = oitem;
+         
+          if (fuel == 'crude') {
+            crudePrices.push(rest)
+          }
+  
+          if (fuel == 'petrol') {
+            petrolPrices.push(rest)
+          }
+        });
+          
+        return [{
+          "name": "Nafta",
+          "series": crudePrices.map(item => {
+              return {
+                "name": item.from,
+                "value": item.price
+              }
+          }),
+        },
+        {
+          "name": "Benzin",
+          "series": petrolPrices.map(item => {
+              return {
+                "name": item.from,
+                "value": item.price
+              }
+          })
+        }];  
+      })
+    )
+
+    // return [
+    //   {
+    //     "name": "Nafta",
+    //     "series": [{
+    //         "name": "11.2.",
+    //         "value": 29.69
+    //       }, {
+    //         "name": "18.2.",
+    //         "value": 35.21
+    //       }, {
+    //         "name": "25.2.",
+    //         "value": 30.45
+    //       }
+    //     ]
+    //   }, 
+    //   {
+    //     "name": "Benzin",
+    //     "series": [{
+    //         "name": "11.2.",
+    //         "value": 31.20
+    //       }, {
+    //         "name": "18.2.",
+    //         "value": 32.50
+    //       }, {
+    //         "name": "25.2.",
+    //         "value": 33.10
+    //       }
+    //     ]
+    //   }
+    // ]
   }
 
   onAdd($event) {

@@ -1,3 +1,26 @@
-<p>
-  login works!
-</p>
+<section>
+  <main>
+    <form [formGroup]="loginForm">
+      <h1>Login</h1>
+      <fieldset>    
+          <input  id="username" #focusEl 
+                  formControlName="username" 
+                  type="text" 
+                  name="username" 
+                  placeholder="Uživatelské jméno"
+                  nbInput fullWidth 
+          >
+          <input  id="password" 
+                  formControlName="password" 
+                  type="password" 
+                  name="password" 
+                  placeholder="Heslo"
+                  nbInput fullWidth>
+      </fieldset>
+      <footer>
+          <button type="button" (click)="onLogin()" class="button large">Login</button>
+      </footer>
+    </form>
+  </main>
+</section>
+

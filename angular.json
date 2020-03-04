@@ -30,7 +30,7 @@
               "node_modules/@nebular/theme/styles/prebuilt/default.css",
               "src/styles.scss"
             ],
-            "aot": false,
+            "aot": true,
             "scripts": []
           },
           "configurations": {

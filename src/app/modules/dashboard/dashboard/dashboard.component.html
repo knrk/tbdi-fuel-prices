@@ -1,11 +1,14 @@
 <section class="fuel-prices">
 	<main>		
-		<!-- <div class="panel">
-			<nb-icon icon="menu-outline"></nb-icon>
-		</div> -->
 		<div class="panel u-flex headline">
+			<nb-icon icon="menu-outline"></nb-icon>
+			<button *ngIf="isLogged" class="button" (click)="onAdd($event)"><nb-icon icon="plus"></nb-icon>Přidat</button>
+		</div>
+		<div class="panel">
 			<h3>Aktuální cena</h3>
-			<button class="button" (click)="onAdd($event)"><nb-icon icon="plus"></nb-icon>Přidat</button>
+		</div>
+		<div class="panel valid" *ngIf="latest">
+			<p>Platná od {{ latest.crude.from | date }} do {{ latest.crude.to | date }}</p>
 		</div>
 		<div class="panel sticky">			
 			<div class="col-md-3 latest-price" *ngIf="latest">
@@ -21,16 +24,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel valid" *ngIf="latest">
-			<p>Platná od {{ latest.crude.from | date }} do {{ latest.crude.to | date }}.</p>
+
+
+		<div class="panel chart">
+			<ngx-charts-line-chart *ngIf="$chartPrices | async as results"
+				[view]="chartConfig.view"
+				[curve]="chartConfig.curve"
+				[scheme]="chartConfig.colorScheme"
+				[legend]="chartConfig.legend"
+				[showXAxisLabel]="chartConfig.showXAxisLabel"
+				[showYAxisLabel]="chartConfig.showYAxisLabel"
+				[xAxis]="chartConfig.xAxis"
+				[yAxis]="chartConfig.yAxis"
+				[xAxisLabel]="chartConfig.xAxisLabel"
+				[yAxisLabel]="chartConfig.yAxisLabel"
+				[yScaleMin]="chartConfig.yScaleMin"
+				[yScaleMax]="chartConfig.yScaleMax"
+				[results]="results"
+			>
+		  </ngx-charts-line-chart>
 		</div>
 
-		<!-- <div class="panel chart">
-			<ngx-chartjs [data]="chartConfig" type="line"></ngx-chartjs>
-		</div> -->
-
 		<div *ngIf="$prices | async as prices" class="history">
-			<h5>Historie</h5>
+			<h3>Historie</h3>
 			<nb-tabset>
 				<nb-tab tabTitle="Nafta">
 					<div class="tab-container">

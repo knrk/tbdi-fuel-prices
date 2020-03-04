@@ -9,19 +9,12 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent implements OnInit{
 
-  httpError: any;
-
-  isUserLogged: boolean;
-
-
-
   constructor(
-    private authService: AuthService
+
   ) {
     
   }
 
   ngOnInit() {
-    this.isUserLogged = this.authService.isAuthenticated();
   }
 }
