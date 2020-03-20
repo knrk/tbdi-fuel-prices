@@ -1,3 +1,10 @@
+:host {
+    h3 {
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 25px;
+    }
+}
 form {
     fieldset {
         background-color: white;
@@ -25,19 +32,63 @@ form {
             &:hover {
                 background-color: transparent;
             }
+        }      
+    }
+
+    section {
+        display: flex;
+        flex-direction: row;
+
+        em {
+            font-size: 12px;
+            font-style: normal; 
+            align-self: center;
+            justify-content: center;
+            margin-left: 10px;
         }
 
+        &.error {	 
+            fieldset {
+                background-color: rgba(0, 112, 255, 0.1);
+                
+                input {
+                  color: red;
+                }
+            } 
+      
+            + ins {
+                color: red;
+                font-weight: 600;
+                font-size: 12px;
+            }
+        }
+      
+        &.error + ins {
+            margin-left: 15px;
+        }
     }
+
     footer {
         padding: 10px 0;
         display: flex;
+        flex-direction: row;
         justify-content: center;
 
-        button {
+        button,
+        a.button {
             min-height: 38px;
-            min-width: 100%;
+            min-width: 75%;
             margin-top: 10px;
             text-transform: uppercase;
+            order: 1;
+        }
+
+        a.button {
+            min-width: 25%;
+            text-decoration: none;
+            background: none;
+            color: #aaa;
+            order: 0;
         }
     }
 }

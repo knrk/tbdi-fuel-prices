@@ -4,12 +4,14 @@ import { Observable, Subject } from 'rxjs';
 
 import { NbWindowService } from '@nebular/theme';
 
-import { curveLinear, curveNatural } from 'd3-shape';
+import { curveNatural } from 'd3-shape';
 
 import { IPrice } from '@shared/models/IPrice';
 import { PricesService } from '@core/services/prices.service';
 import { AddPriceComponent } from '@shared/dialogs/add-price/add-price.component'
 import { AuthService } from '@core/services/auth.service';
+
+import { environment, v } from '@env/environment';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +20,8 @@ import { AuthService } from '@core/services/auth.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+
+  public appVersion = v;
 
   public isLogged: boolean = false;
 
@@ -60,6 +64,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   filterPriceOlderWeek(price: any) {
     const beforeWeek = new Date(new Date().setDate(new Date().getDate() - 7));
     return price.from < beforeWeek ? true : false;
+  }
+
+  filterPriceByCrude(price: any) {
+    return price.fuel === 'crude' ? true : false;
+  }
+  filterPriceByPetrol(price: any) {
+    return price.fuel === 'petrol' ? true : false;
   }
 
   trackByFn(index, item) {
@@ -110,9 +121,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   setChart() {    
     this.chartConfig = {
       colorScheme: {
-        domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+        domain: ['#5AA454', '#E44D25']
       },
-      view: [500, 120],
+      // view: [420, 120],
       legend: false,
       showLabels: false,
       animations: true,
@@ -155,7 +166,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             petrolPrices.push(rest)
           }
         });
-          
+
         return [{
           "name": "Nafta",
           "series": crudePrices.map(item => {
@@ -177,39 +188,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       })
     )
 
-    // return [
-    //   {
-    //     "name": "Nafta",
-    //     "series": [{
-    //         "name": "11.2.",
-    //         "value": 29.69
-    //       }, {
-    //         "name": "18.2.",
-    //         "value": 35.21
-    //       }, {
-    //         "name": "25.2.",
-    //         "value": 30.45
-    //       }
-    //     ]
-    //   }, 
-    //   {
-    //     "name": "Benzin",
-    //     "series": [{
-    //         "name": "11.2.",
-    //         "value": 31.20
-    //       }, {
-    //         "name": "18.2.",
-    //         "value": 32.50
-    //       }, {
-    //         "name": "25.2.",
-    //         "value": 33.10
-    //       }
-    //     ]
-    //   }
-    // ]
   }
 
   onAdd($event) {
-    this.windowService.open(AddPriceComponent, { hasBackdrop: true, windowClass: 'stretch'});
+    const windowRef = this.windowService.open(AddPriceComponent, { 
+      hasBackdrop: true, 
+      windowClass: 'stretch',
+      context: {
+        latestCrudePrice: this.latest.crude.price,
+        latestPetrolPrice: this.latest.petrol.price
+      }
+    });
   }
 }

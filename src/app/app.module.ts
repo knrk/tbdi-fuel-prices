@@ -8,6 +8,8 @@ import { registerLocaleData } from '@angular/common';
 import localeCs from '@angular/common/locales/cs';
 registerLocaleData(localeCs);
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { NbThemeModule, NbLayoutModule, NbWindowModule, NbDatepickerModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -32,6 +34,8 @@ import { MasterFooterComponent } from './core/components/master-footer/master-fo
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,

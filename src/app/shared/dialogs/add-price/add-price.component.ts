@@ -1,63 +1,87 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef } from '@angular/core';
+
+import * as moment from 'moment';
 
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { PricesService } from '@core/services/prices.service';
-import { NbWindowRef, NbDatepicker, NbDatepickerComponent } from '@nebular/theme';
+import { NbWindowRef } from '@nebular/theme';
 
 @Component({
   selector: 'app-add-price',
   templateUrl: './add-price.component.html',
   styleUrls: ['./add-price.component.scss']
 })
-export class AddPriceComponent implements OnInit {
+export class AddPriceComponent implements OnInit, AfterViewInit {
 
-  public addPrice: FormGroup;
+  public addPriceForm: FormGroup;
+
+  @Input() latestCrudePrice: number;
+  @Input() latestPetrolPrice: number;
+
+  @Input() initialFromDate: Date = new Date(new Date().setDate(new Date().getDate() + 1));
+  @Input() initialToDate: Date = new Date(new Date().setDate(new Date().getDate() + 7));
 
   @ViewChild('fromDate') fromDate: any;
   @ViewChild('toDate') toDate: any;
 
+  @ViewChild('focusEl') focusEl: ElementRef;
+
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private priceService: PricesService,
     protected windowRef: NbWindowRef
   ) { }
 
   ngOnInit(): void {
 
-    const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
-    const plusWeek = new Date(new Date().setDate(new Date().getDate() + 8));
-
-    this.addPrice = this.fb.group({
-      crude: this.fb.control('30.00'),
-      petrol: this.fb.control('30.00'),
-      from: this.fb.control(tomorrow),
-      to: this.fb.control(plusWeek)
+    this.addPriceForm = this.formBuilder.group({
+      crude: this.formBuilder.control(this.latestCrudePrice),
+      petrol: this.formBuilder.control(this.latestPetrolPrice),
+      from: this.formBuilder.control(this.initialFromDate),
+      to: this.formBuilder.control(this.initialToDate)
+    }, {
+      updateOn: 'change'      
     })
   }
 
+  ngAfterViewInit() {
+    this.focusEl.nativeElement.focus();
+  }
+
   onAdd() {
-    // console.log(this.addPrice.value)
-    const { from, to, crude, petrol } = this.addPrice.value;
-    this.priceService.addPrice({
-      from, to, 
-      price: petrol,
-      fuel: 'petrol',
-      published: true
-    });
-    this.priceService.addPrice({
-      from, to, 
-      price: crude,
-      fuel: 'crude',
-      published: true
-    });
+    // console.log(this.addPriceForm)
+    if (this.addPriceForm.valid) {
+      let { from, to, crude, petrol } = this.addPriceForm.value;
+
+      from = moment(from, moment.defaultFormat).toDate();
+      to = moment(to, moment.defaultFormat).toDate();
+
+      this.priceService.addPrice({
+        from, to, 
+        price: petrol,
+        fuel: 'petrol',
+        published: true
+      });
+      this.priceService.addPrice({
+        from, to, 
+        price: crude,
+        fuel: 'crude',
+        published: true
+      });
+    }
 
     this.windowRef.close();
   }
 
-  onFromDateChanged(fromDate) {
-    const from = new Date(new Date().setDate(new Date(fromDate).getDate() + 6));
-    this.toDate.hostRef.nativeElement.value = from.toLocaleDateString('cs-CZ');
+  onClose() {
+    this.windowRef.close();
+  }
+
+  onFromDateChanged(changeEvent) {
+    const updatedToDate = new Date(new Date().setDate(new Date(changeEvent.target.value).getDate() + 6));
+    // this.toDate.hostRef.nativeElement.value = updatedToDate.toLocaleDateString('cs-CZ');
+    this.addPriceForm.controls['to'].setValue(moment(updatedToDate).format('YYYY-MM-DD'));
   }
 
 }

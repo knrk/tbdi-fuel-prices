@@ -1,19 +1,35 @@
-<form [formGroup]="addPrice">
-    <h5>Cena</h5>
-    <fieldset>    
-        <input id="crude" formControlName="crude" value="30.00" type="number" pattern="^\d{1,2}.\d{1,2}$" step="0.01" name="crude" placeholder="Nafta" nbInput fullWidth>
-        <input id="petrol" formControlName="petrol" value="30.00" type="number" pattern="^\d{1,2}.\d{1,2}$" step="0.01" name="petrol" placeholder="Benzín" nbInput fullWidth>
-    </fieldset>
-    <br>
+<h3>Aktualizace cen</h3>
+<form #f [formGroup]="addPriceForm">
+    <h5>Cena nafty</h5>
+    <section [ngClass]="{error: addPriceForm.controls['crude'].invalid}">
+        <fieldset>
+            <input #focusEl formControlName="crude" [value]="latestCrudePrice" type="number" pattern="^\d{1,2}.?\d{0,2}$" step="0.01" name="crude" placeholder="Nafta" nbInput fullWidth>
+        </fieldset>
+        <em>Kč/l</em>
+    </section>
+    <ins *ngIf="addPriceForm.controls['crude'].invalid">Neplatná cena</ins>
+    <br><br>
+    <h5>Cena benzínu</h5>
+    <section [ngClass]="{error: addPriceForm.controls['petrol'].invalid}">
+        <fieldset>
+            <input formControlName="petrol" [value]="latestPetrolPrice" type="number" pattern="^\d{1,2}.?\d{0,2}$" step="0.01" name="petrol" placeholder="Benzín" nbInput fullWidth>
+        </fieldset>
+        <em>Kč/l</em>
+    </section>
+    <ins *ngIf="addPriceForm.controls['petrol'].invalid">Neplatná cena</ins>
+    <br><br>
     <h5>Platnost</h5>
     <fieldset>    
-        <input id="from" formControlName="from" name="from" [nbDatepicker]="fromDate">
-        <nb-datepicker #fromDate (dateChange)="onFromDateChanged($event)"></nb-datepicker>
-        <input id="to" formControlName="to" name="to" [nbDatepicker]="toDate">
-        <nb-datepicker #toDate></nb-datepicker>        
+        <!-- <input id="from" type="date" formControlName="from" name="from" [nbDatepicker]="fromDate"> -->
+        <input #fromDate id="from" type="date" [value]="initialFromDate | amDateFormat:'YYYY-MM-DD'" (change)="onFromDateChanged($event)" formControlName="from" name="from">
+        <!-- <nb-datepicker #fromDate (dateChange)="onFromDateChanged($event)"></nb-datepicker> -->
+        <input id="to" type="date" [value]="initialToDate | amDateFormat:'YYYY-MM-DD'" formControlName="to" name="to">
+        <!-- <input id="to" type="date" formControlName="to" name="to" [nbDatepicker]="toDate"> -->
+        <!-- <nb-datepicker #toDate></nb-datepicker>         -->
     </fieldset>
     <footer>
-        <button type="button" (click)="onAdd()" class="button large">Uložit</button>
+        <button type="button" (click)="onAdd()" class="button large" [disabled]="addPriceForm.invalid">Uložit</button>
+        <a href="javascript:;" (click)="onClose()" class="button">Zrušit</a>
     </footer>
 </form>
 

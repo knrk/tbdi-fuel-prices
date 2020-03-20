@@ -3,6 +3,7 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
+        overflow: hidden;
 
         main {
             flex: 1 1 auto;
@@ -13,11 +14,11 @@
         footer {
             display: flex;
             justify-content: center;
-            padding-bottom: 40px;
+            min-height: 80px;
+            align-items: center;
 
             p {
                 font-size: 11px;
-                margin: 10px 0;
                 color: rgba(0, 0, 0, 0.5);
             }
         }
@@ -27,6 +28,7 @@
             flex-direction: column;
             flex: 1 0 auto;
             padding: 0 15px;
+            margin-top: 10px;
         
             nb-card,
             nb-card-header,
@@ -42,6 +44,7 @@
                 .tab-container {
                     display: block;
                     overflow: auto;
+                    height: 100%;
                 }
 
                 nb-tab {
@@ -67,11 +70,20 @@
                             font-size: 16px;
                             line-height: 22px;
 
+                            &.active:before,
+                            &:before {
+                                display: none !important;
+                            }
+
+                            &:hover {
+                                border: none;
+                            }
+
                             span {
                                 font-weight: 500;
                                 color: rgba(0, 0, 0, 0.5);
                                 font-size: 12px;
-                            }
+                            }                            
                         }
 
                         &.active {                             
@@ -82,11 +94,7 @@
 
                                 span {
                                     color: rgba(0, 0, 0, 1);
-                                }
-
-                                &::before {
-                                    display: none !important;
-                                }
+                                }                                
                             }
                         }
                     }
@@ -99,6 +107,10 @@
                 border: 0;
                 border-radius: 12px;
                 margin-bottom: 12px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
 
                 .date {
                     color: rgba(0, 0, 0, 0.5);
@@ -160,10 +172,9 @@ p {
 
 .panel.sticky {
     position: sticky;
-    // background-color: rgba(255, 255, 255, 0.3);
     padding: 0 15px;
     z-index: 100;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     &::before {
         display: block;
@@ -201,23 +212,13 @@ p {
     }
 }
 
-.panel.valid {
-    p {
-        text-align: left;
-        margin-left: 10px;
-        opacity: 0.3;
-    }
-}
 :host ::ng-deep {
     .panel.chart {
         background-color: rgba(255, 255, 255, 0.2);
-        margin: 0;
+        margin: 0 -20px;
         padding: 0;
-
-        
-        .ngx-charts {
-            margin-left: -45px;
-        }
+        overflow: hidden;
+        max-height: 120px;
     }
 }
 .big-number {
@@ -253,4 +254,3 @@ p {
         font-weight: 600;
     }
 }
-

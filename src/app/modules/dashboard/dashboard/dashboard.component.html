@@ -1,15 +1,11 @@
 <section class="fuel-prices">
 	<main>		
-		<div class="panel u-flex headline">
+		<div *ngIf="isLogged" class="panel u-flex headline">
 			<nb-icon icon="menu-outline"></nb-icon>
-			<button *ngIf="isLogged" class="button" (click)="onAdd($event)"><nb-icon icon="plus"></nb-icon>Přidat</button>
+			<button class="button" (click)="onAdd($event)"><nb-icon icon="plus"></nb-icon>Aktualizovat Ceny</button>
 		</div>
-		<div class="panel">
-			<h3>Aktuální cena</h3>
-		</div>
-		<div class="panel valid" *ngIf="latest">
-			<p>Platná od {{ latest.crude.from | date }} do {{ latest.crude.to | date }}</p>
-		</div>
+		<h3 >Aktuální cena</h3>
+		<h6 *ngIf="latest">Platná od {{ latest.crude.from | date }} do {{ latest.crude.to | date }}</h6>
 		<div class="panel sticky">			
 			<div class="col-md-3 latest-price" *ngIf="latest">
 				<div class="latest-price__wrap">
@@ -45,29 +41,33 @@
 		  </ngx-charts-line-chart>
 		</div>
 
+		<h3>Historie</h3>
 		<div *ngIf="$prices | async as prices" class="history">
-			<h3>Historie</h3>
 			<nb-tabset>
 				<nb-tab tabTitle="Nafta">
 					<div class="tab-container">
-						<nb-list *ngFor="let item of prices | callback: filterPriceOlderWeek; trackBy: trackByFn">
-							<nb-list-item *ngIf="item.fuel == 'crude'">
-								<div class="row-item">
-									<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
-									<div class="price"><b>{{ item.price | currency }}/l</b></div>
-								</div>
+						<nb-list>
+							<nb-list-item *ngFor="let item of prices | callback: filterPriceOlderWeek | callback: filterPriceByCrude; trackBy: trackByFn">
+								<ng-container *ngIf="item.fuel == 'crude'">
+									<div class="row-item">
+										<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
+										<div class="price"><b>{{ item.price | currency }}/l</b></div>
+									</div>
+								</ng-container>
 							</nb-list-item>
 						</nb-list>
 					</div>
 				</nb-tab>
 				<nb-tab tabTitle="Benzín">
 					<div class="tab-container">
-						<nb-list *ngFor="let item of prices | callback: filterPriceOlderWeek; trackBy: trackByFn">
-							<nb-list-item *ngIf="item.fuel == 'petrol'">
-								<div class="row-item">
-									<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
-									<div class="price"><b>{{ item.price | currency }}/l</b></div>
-								</div>
+						<nb-list>
+							<nb-list-item *ngFor="let item of prices | callback: filterPriceOlderWeek | callback: filterPriceByPetrol; trackBy: trackByFn">
+								<ng-container *ngIf="item.fuel == 'petrol'">
+									<div class="row-item">
+										<div class="date">{{ item.from | date }} - {{ item.to | date }}</div>
+										<div class="price"><b>{{ item.price | currency }}/l</b></div>
+									</div>
+								</ng-container>
 							</nb-list-item>
 						</nb-list>
 					</div>
@@ -78,7 +78,7 @@
 	</main>
 	<footer>
 		<p *ngIf="latest">
-			Poslední aktualizace: <b>{{ latest.crude.from | amLocale: "cs" | amTimeAgo }}</b>
+			Aktualizace: <b>{{ latest.crude.from | amLocale: "cs" | amTimeAgo }}</b>, v{{ appVersion }}
 		</p>
 	</footer>
 </section>

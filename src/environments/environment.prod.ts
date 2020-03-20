@@ -1,3 +1,5 @@
+import { name, version } from '../../package.json';
+
 export const environment = {
   production: true,
   firebase: {
@@ -11,3 +13,5 @@ export const environment = {
     measurementId: "G-F1R7WXH1BZ"
   }
 };
+
+export const v = version;

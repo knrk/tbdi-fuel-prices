@@ -15,7 +15,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddPriceComponent } from '@shared/dialogs/add-price/add-price.component';
 
 import { AuthGuard } from '@core/services/auth.guard';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 // Routing
@@ -34,8 +33,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    MomentModule,
-    ReactiveFormsModule, 
+    MomentModule, 
     NbWindowModule.forRoot(),
     NbInputModule,
     NbButtonModule,
